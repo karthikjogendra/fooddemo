@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D A k foods</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #333;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: #555;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+        
+        /* Login Page */
+        #login-page {
+            display: none;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        #login-page h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .login-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .signup-link a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        /* Main Page */
+        #main-page {
+            display: block;
+        }
+        
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://picsum.photos/seed/foodheader/1200/400.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 30px auto;
+            text-align: center;
+        }
+        
+        .search-box {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+        
+        .search-box button {
+            padding: 12px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-box button:hover {
+            background-color: #c0392b;
+        }
+        
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            gap: 15px;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background-color: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+        
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .menu-item-content {
+            padding: 20px;
+        }
+        
+        .menu-item h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .menu-item p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .menu-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 18px;
+        }
+        
+        .add-to-cart {
+            padding: 8px 15px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Menu Page */
+        #menu-page {
+            display: none;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        #menu-page h2 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .menu-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .menu-section {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 30px;
+        }
+        
+        .menu-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .menu-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #e74c3c;
+        }
+        
+        .menu-section-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        /* Order Page */
+        #order-page {
+            display: none;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        #order-page h2 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .cart-items {
+            margin-bottom: 30px;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-details h3 {
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-details p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background-color: #f4f4f4;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .quantity {
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        
+        .remove-item {
+            color: #e74c3c;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cart-summary {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .summary-row.total {
+            font-weight: bold;
+            font-size: 18px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .back-to-menu {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .back-to-menu:hover {
+            text-decoration: underline;
+        }
+        
+        /* Contact Page */
+        #contact-page {
+            display: none;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        #contact-page h2 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        .contact-detail-text {
+            flex: 1;
+        }
+        
+        .contact-form-group {
+            margin-bottom: 20px;
+        }
+        
+        .contact-form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .contact-form-group input, .contact-form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .contact-form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .contact-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .contact-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .back-to-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-section p, .footer-section address {
+            line-height: 1.6;
+            color: #ddd;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #e74c3c;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast-icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        .toast-message {
+            flex: 1;
+        }
+        
+        .toast-close {
+            background: none;
+            border: none;
+            color: white;
+            margin-left: 15px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .menu-grid, .menu-section-items, .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display:;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Delicious Food</div>
+            <ul class="nav-links">
+                <li><a href="#" id="home-link">Home</a></li>
+                <li><a href="#" id="menu-link">Menu</a></li>
+                <li><a href="#" id="about-link">About</a></li>
+                <li><a href="#" id="contact-link">Contact</a></li>
+                <li><a href="#" id="login-toggle">Login</a></li>
+                <li class="cart-icon">
+                    <a href="#" id="cart-link">🛒</a>
+                    <span class="cart-count">0</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Login Page -->
+    <div id="login-page">
+        <h2>Login to Your Account</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+            <div class="signup-link">
+                <p>Don't have an account? <a href="#">Sign up</a></p>
+            </div>
+        </form>
+    </div>
+
+    <!-- Main Page -->
+    <div id="main-page">
+        <header>
+            <h1>Siddu Foody</h1>
+            <p>Experience the finest culinary delights from around the world, right at your doorstep.</p>
+        </header>
+
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" placeholder="Search for dishes..." id="search-input">
+                <button id="search-btn">Search</button>
+            </div>
+        </div>
+
+        <div class="categories">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="main">Main Course</button>
+            <button class="category-btn" data-category="appetizer">Appetizers</button>
+            <button class="category-btn" data-category="dessert">Desserts</button>
+            <button class="category-btn" data-category="beverage">Beverages</button>
+            <button class="category-btn" data-category="salad">Salads</button>
+        </div>
+
+        <div class="menu-container">
+            <div class="menu-grid" id="menu-items">
+                <!-- Menu items will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Page -->
+    <div id="menu-page">
+        <h2>Our Complete Menu</h2>
+        <div class="menu-sections">
+            <!-- Menu sections will be dynamically added here -->
+        </div>
+        <a href="#" class="back-to-home" id="back-to-home">← Back to Home</a>
+    </div>
+
+    <!-- Order Page -->
+    <div id="order-page">
+        <h2>Your Order</h2>
+        <div class="cart-items" id="cart-items-container">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">$0.00</span>
+            </div>
+            <div class="summary-row">
+                <span>Tax (10%):</span>
+                <span id="tax">$0.00</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total:</span>
+                <span id="total">$0.00</span>
+            </div>
+        </div>
+        <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+        <a href="#" class="back-to-menu" id="back-to-menu">← Back to Menu</a>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact-page">
+        <h2>Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <div class="contact-details">
+                    <div class="contact-detail">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-detail-text">
+                            <strong>Address:</strong> 123 Food Street, Culinary District, Foodville, FD 12345
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-detail-text">
+                            <strong>Phone:</strong> 824-824-27
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-detail-text">
+                            <strong>Email:</strong> info@deliciousfood.com
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-icon">⏰</div>
+                        <div class="contact-detail-text">
+                            <strong>Hours:</strong> Monday - Sunday, 11:00 AM - 10:00 PM
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="contact-form">
+                    <div class="contact-form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="contact-form-group">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email" required>
+                    </div>
+                    <div class="contact-form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" required>
+                    </div>
+                    <div class="contact-form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit" class="contact-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+        <a href="#" class="back-to-home" id="contact-back-to-home">← Back to Home</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Delicious Food is dedicated to bringing you the finest culinary experiences from around the world. Our mission is to satisfy your cravings with high-quality ingredients and exceptional service.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Information</h3>
+                    <address>
+                        123 Food Street<br>
+                        Culinary District<br>
+                        Foodville, FD 12345
+                    </address>
+                    <p>Phone: 824-824-27</p>
+                    <p>Email: info@deliciousfood.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Menu</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <p>Follow us on social media for updates, promotions, and more!</p>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Pinterest</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Delicious Food. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message" id="toast-message"></span>
+        <button class="toast-close" id="toast-close">×</button>
+    </div>
+
+    <script>
+        // Menu items data
+        const menuItems = [
+            {
+                id: 1,
+                name: "Classic Margherita Pizza",
+                description: "Traditional pizza with tomato sauce, fresh mozzarella, and basil.",
+                price: 12.99,
+                image: "https://picsum.photos/seed/pizza1/300/200.jpg",
+                category: "main"
+            },
+            {
+                id: 2,
+                name: "Spaghetti Carbonara",
+                description: "Creamy pasta with pancetta, eggs, and parmesan cheese.",
+                price: 14.99,
+                image: "https://picsum.photos/seed/pasta1/300/200.jpg",
+                category: "main"
+            },
+            {
+                id: 3,
+                name: "Caesar Salad",
+                description: "Fresh romaine lettuce with Caesar dressing, croutons, and parmesan.",
+                price: 8.99,
+                image: "https://picsum.photos/seed/salad1/300/200.jpg",
+                category: "salad"
+            },
+            {
+                id: 4,
+                name: "Grilled Salmon",
+                description: "Fresh salmon fillet grilled to perfection with lemon herbs.",
+                price: 18.99,
+                image: "https://picsum.photos/seed/salmon1/300/200.jpg",
+                category: "main"
+            },
+            {
+                id: 5,
+                name: "Chicken Alfredo",
+                description: "Fettuccine pasta with creamy Alfredo sauce and grilled chicken.",
+                price: 15.99,
+                image: "https://picsum.photos/seed/chicken1/300/200.jpg",
+                category: "main"
+            },
+            {
+                id: 6,
+                name: "Mushroom Risotto",
+                description: "Creamy Italian rice dish with wild mushrooms and ricotta cheese, baked with mozzarella.",
+                price: 13.99,
+                image: "https://picsum.photos/seed/risotto1/300/200.jpg",
+                category: "main"
+            },
+            {
+                id: 7,
+                name: "Bruschetta",
+                description: "Toasted bread topped with tomatoes, garlic, and fresh basil.",
+                price: 6.99,
+                image: "https://picsum.photos/seed/bruschetta1/300/200.jpg",
+                category: "appetizer"
+            },
+            {
+                id: 8,
+                name: "Mozzarella Sticks",
+                description: "Crispy fried mozzarella served with marinara sauce.",
+                price: 7.99,
+                image: "https://picsum.photos/seed/mozzarella1/300/200.jpg",
+                category: "appetizer"
+            },
+            {
+                id: 9,
+                name: "Garlic Bread",
+                description: "Toasted bread brushed with garlic butter and herbs.",
+                price: 4.99,
+                image: "https://picsum.photos/seed/bread1/300/200.jpg",
+                category: "appetizer"
+            },
+            {
+                id: 10,
+                name: "Caprese Salad",
+                description: "Fresh tomatoes, mozzarella, and basil drizzled with balsamic glaze.",
+                price: 9.99,
+                image: "https://picsum.photos/seed/caprese1/300/200.jpg",
+                category: "salad"
+            },
+            {
+                id: 11,
+                name: "Greek Salad",
+                description: "Crisp lettuce, tomatoes, cucumbers, olives, and feta cheese.",
+                price: 8.99,
+                image: "https://picsum.photos/seed/greek1/300/200.jpg",
+                category: "salad"
+            },
+            {
+                id: 12,
+                name: "Chocolate Lava Cake",
+                description: "Warm chocolate cake with a molten center, served with ice cream.",
+                price: 7.99,
+                image: "https://picsum.photos/seed/chocolate1/300/200.jpg",
+                category: "dessert"
+            },
+            {
+                id: 13,
+                name: "Tiramisu",
+                description: "Classic Italian dessert with layers of coffee-soaked ladyfingers and mascarpone cream.",
+                price: 6.99,
+                image: "https://picsum.photos/seed/tiramisu1/300/200.jpg",
+                category: "dessert"
+            },
+            {
+                id: 14,
+                name: "Cheesecake",
+                description: "Creamy New York style cheesecake with a graham cracker crust.",
+                price: 7.49,
+                image: "https://picsum.photos/seed/cheesecake1/300/200.jpg",
+                category: "dessert"
+            },
+            {
+                id: 15,
+                name: "Apple Pie",
+                description: "Traditional apple pie with a flaky crust, served warm with vanilla ice cream.",
+                price: 6.49,
+                image: "https://picsum.photos/seed/applepie1/300/200.jpg",
+                category: "dessert"
+            },
+            {
+                id: 16,
+                name: "Espresso",
+                description: "Strong Italian coffee made by forcing hot water through finely-ground coffee beans.",
+                price: 3.99,
+                image: "https://picsum.photos/seed/espresso1/300/200.jpg",
+                category: "beverage"
+            },
+            {
+                id: 17,
+                name: "Cappuccino",
+                description: "Espresso with steamed milk and a layer of milk foam.",
+                price: 4.49,
+                image: "https://picsum.photos/seed/cappuccino1/300/200.jpg",
+                category: "beverage"
+            },
+            {
+                id: 18,
+                name: "Fresh Orange Juice",
+                description: "Freshly squeezed orange juice, no added sugar.",
+                price: 3.99,
+                image: "https://picsum.photos/seed/orangejuice1/300/200.jpg",
+                category: "beverage"
+            },
+            {
+                id: 19,
+                name: "Mojito",
+                description: "Refreshing cocktail with white rum, mint, lime, sugar, and soda water.",
+                price: 7.99,
+                image: "https://picsum.photos/seed/mojito1/300/200.jpg",
+                category: "beverage"
+            },
+            {
+                id: 20,
+                name: "Truffle Risotto",
+                description: "Creamy risotto with earthy truffles and parmesan cheese.",
+                price: 16.99,
+                image: "https://picsum.photos/seed/truffle1/300/200.jpg",
+                category: "main"
+            },
+            {
+                id: 21,
+                name: "Beef Wellington",
+                description: "Tender beef fillet coated with pâté and duxelles, wrapped in puff pastry.",
+                price: 24.99,
+                image: "https://picsum.photos/seed/beef1/300/200.jpg",
+                category: "main"
+            },
+            {
+                id: 22,
+                name: "Seafood Paella",
+                description: "Saffron-infused rice with shrimp, mussels, clams, and calamari.",
+                price: 19.99,
+                image: "https://picsum.photos/seed/paella1/300/200.jpg",
+                category: "main"
+            },
+            {
+                id: 23,
+                name: "Mediterranean Platter",
+                description: "Assortment of hummus, baba ghanoush, falafel, and pita bread.",
+                price: 14.99,
+                image: "https://picsum.photos/seed/mediterranean1/300/200.jpg",
+                category: "appetizer"
+            },
+            {
+                id: 24,
+                name: "Calamari",
+                description: "Crispy fried squid rings served with marinara sauce.",
+                price: 11.99,
+                image: "https://picsum.photos/seed/calamari1/300/200.jpg",
+                category: "appetizer"
+            },
+            {
+                id: 25,
+                name: "Panna Cotta",
+                description: "Creamy Italian dessert with a silky smooth texture, served with berry coulis.",
+                price: 6.99,
+                image: "https://picsum.photos/seed/pannacotta1/300/200.jpg",
+                category: "dessert"
+            },
+            {
+                id: 26,
+                name: "Tarte Tatin",
+                description: "Upside-down caramelized apple tart with a flaky crust.",
+                price: 7.49,
+                image: "https://picsum.photos/seed/tarte1/300/200.jpg",
+                category: "dessert"
+            },
+            {
+                id: 27,
+                name: "Bellini",
+                description: "Sparkling wine cocktail made with peach puree.",
+                price: 8.99,
+                image: "https://picsum.photos/seed/bellini1/300/200.jpg",
+                category: "beverage"
+            },
+            {
+                id: 28,
+                name: "Negroni",
+                description: "Classic Italian cocktail with gin, vermouth, and Campari.",
+                price: 8.49,
+                image: "https://picsum.photos/seed/negroni1/300/200.jpg",
+                category: "beverage"
+            },
+            {
+                id: 29,
+                name: "Caprese Sandwich",
+                description: "Fresh mozzarella, tomatoes, and basil on ciabatta bread with olive oil.",
+                price: 9.99,
+                image: "https://picsum.photos/seed/caprese2/300/200.jpg",
+                category: "appetizer"
+            },
+            {
+                id: 30,
+                name: "Vegetable Lasagna",
+                description: "Layers of pasta with roasted vegetables and ricotta cheese, baked with mozzarella.",
+                price: 13.99,
+                image: "https://picsum.photos/seed/lasagna1/300/200.jpg",
+                category: "main"
+            }
+        ];
+
+        // DOM elements
+        const loginPage = document.getElementById('login-page');
+        const mainPage = document.getElementById('main-page');
+        const menuPage = document.getElementById('menu-page');
+        const orderPage = document.getElementById('order-page');
+        const contactPage = document.getElementById('contact-page');
+        const loginToggle = document.getElementById('login-toggle');
+        const homeLink = document.getElementById('home-link');
+        const menuLink = document.getElementById('menu-link');
+        const aboutLink = document.getElementById('about-link');
+        const contactLink = document.getElementById('contact-link');
+        const cartLink = document.getElementById('cart-link');
+        const menuItemsContainer = document.getElementById('menu-items');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const subtotalElement = document.getElementById('subtotal');
+        const taxElement = document.getElementById('tax');
+        const totalElement = document.getElementById('total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const backToMenuBtn = document.getElementById('back-to-menu');
+        const backToHomeBtn = document.getElementById('back-to-home');
+        const contactBackToHomeBtn = document.getElementById('contact-back-to-home');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const cartCountElement = document.querySelector('.cart-count');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        const toastClose = document.getElementById('toast-close');
+        const loginForm = document.getElementById('login-form');
+        const contactForm = document.getElementById('contact-form');
+        const contactEmailInput = document.getElementById('contact-email');
+        const contactNameInput = document.getElementById('name');
+        const contactSubjectInput = document.getElementById('subject');
+        const contactMessageInput = document.getElementById('message');
+
+        // Cart data
+        let cart = [];
+        let currentCategory = 'all';
+        let searchTerm = '';
+
+        // Initialize the page
+        function init() {
+            renderMenuItems();
+            renderMenuPage();
+            updateCartCount();
+        }
+
+        // Render menu items
+        function renderMenuItems() {
+            menuItemsContainer.innerHTML = '';
+            
+            const filteredItems = menuItems.filter(item => {
+                const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
+                const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                                     item.description.toLowerCase().includes(searchTerm.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+            
+            filteredItems.forEach(item => {
+                const menuItemElement = document.createElement('div');
+                menuItemElement.className = 'menu-item';
+                menuItemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="menu-item-content">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        <div class="menu-item-footer">
+                            <span class="price">$${item.price.toFixed(2)}</span>
+                            <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
+                        </div>
+                    </div>
+                `;
+                menuItemsContainer.appendChild(menuItemElement);
+            });
+            
+            // Add event listeners to the Add to Cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+
+        // Add item to cart
+        function addToCart(event) {
+            const itemId = parseInt(event.target.getAttribute('data-id'));
+            const item = menuItems.find(item => item.id === itemId);
+            
+            const existingItem = cart.find(cartItem => cartItem.id === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...item,
+                    quantity: 1
+                });
+            }
+            
+            updateCartCount();
+            showToast(`Added ${item.name} to your cart`);
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountElement.textContent = totalItems;
+        }
+
+        // Show order page
+        function showOrderPage() {
+            mainPage.style.display = 'none';
+            menuPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            orderPage.style.display = 'block';
+            renderCartItems();
+            updateOrderSummary();
+        }
+
+        // Show main page
+        function showMainPage() {
+            loginPage.style.display = 'none';
+            orderPage.style.display = 'none';
+            menuPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            mainPage.style.display = 'block';
+        }
+
+        // Show menu page
+        function showMenuPage() {
+            loginPage.style.display = 'none';
+            mainPage.style.display = 'none';
+            orderPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            menuPage.style.display = 'block';
+        }
+
+        // Show contact page
+        function showContactPage() {
+            loginPage.style.display = 'none';
+            mainPage.style.display = 'none';
+            menuPage.style.display = 'none';
+            orderPage.style.display = 'none';
+            contactPage.style.display = 'block';
+        }
+
+        // Render cart items
+        function renderCartItems() {
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty</p>';
+                return;
+            }
+            
+            cart.forEach(item => {
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-details">
+                        <h3>${item.name}</h3>
+                        <p>$${item.price.toFixed(2)} per item</p>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                            <span class="quantity">${item.quantity}</span>
+                            <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                        </div>
+                        <button class="remove-item" data-id="${item.id}">Remove</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            // Add event listeners to the cart item buttons
+            document.querySelectorAll('.quantity-btn.decrease').forEach(button => {
+                button.addEventListener('click', decreaseQuantity);
+            });
+            
+            document.querySelectorAll('.quantity-btn.increase').forEach(button => {
+                button.addEventListener('click', increaseQuantity);
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', removeItem);
+            });
+        }
+
+        // Update order summary
+        function updateOrderSummary() {
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+            
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            taxElement.textContent = `$${tax.toFixed(2)}`;
+            totalElement.textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Decrease item quantity
+        function decreaseQuantity(event) {
+            const itemId = parseInt(event.target.getAttribute('data-id'));
+            const cartItem = cart.find(item => item.id === itemId);
+            
+            if (cartItem.quantity > 1) {
+                cartItem.quantity -= 1;
+            } else {
+                cart = cart.filter(item => item.id !== itemId);
+            }
+            
+            renderCartItems();
+            updateOrderSummary();
+            updateCartCount();
+        }
+
+        // Increase item quantity
+        function increaseQuantity(event) {
+            const itemId = parseInt(event.target.getAttribute('data-id'));
+            const cartItem = cart.find(item => item.id === itemId);
+            
+            cartItem.quantity += 1;
+            
+            renderCartItems();
+            updateOrderSummary();
+            updateCartCount();
+        }
+
+        // Remove item from cart
+        function removeItem(event) {
+            const itemId = parseInt(event.target.getAttribute('data-id'));
+            cart = cart.filter(item => item.id !== itemId);
+            
+            renderCartItems();
+            updateOrderSummary();
+            updateCartCount();
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Render menu page
+        function renderMenuPage() {
+            const menuSections = document.querySelector('.menu-sections');
+            menuSections.innerHTML = '';
+            
+            // Create sections for each category
+            const categories = ['appetizer', 'main', 'salad', 'dessert', 'beverage'];
+            
+            categories.forEach(category => {
+                const categoryItems = menuItems.filter(item => item.category === category);
+                
+                if (categoryItems.length > 0) {
+                    const section = document.createElement('div');
+                    section.className = 'menu-section';
+                    
+                    let sectionName = category.charAt(0).toUpperCase() + category.slice(1);
+                    
+                    section.innerHTML = `
+                        <h3>${sectionName}</h3>
+                        <div class="menu-section-items">
+                            ${categoryItems.map(item => `
+                                <div class="menu-item">
+                                    <img src="${item.image}" alt="${item.name}">
+                                    <div class="menu-item-content">
+                                        <h3>${item.name}</h3>
+                                        <p>${item.description}</p>
+                                        <div class="menu-item-footer">
+                                            <span class="price">$${item.price.toFixed(2)}</span>
+                                            <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                    menuSections.appendChild(section);
+                }
+            });
+            
+            // Add event listeners to the Add to Cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+
+        // Event listeners
+        loginToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (loginPage.style.display === 'none') {
+                loginPage.style.display = 'block';
+                mainPage.style.display = 'none';
+                menuPage.style.display = 'none';
+                orderPage.style.display = 'none';
+                contactPage.style.display = 'none';
+            } else {
+                loginPage.style.display = 'none';
+                mainPage.style.display = 'block';
+                menuPage.style.display = 'none';
+                orderPage.style.display = 'none';
+                contactPage.style.display = 'none';
+            }
+        });
+
+        homeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showMainPage();
+        });
+
+        menuLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showMenuPage();
+        });
+
+        aboutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            // In a real app, this would navigate to an about page
+            showToast('About page coming soon!');
+        });
+
+        contactLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showContactPage();
+        });
+
+        cartLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (cart.length === 0) {
+                showToast('Your cart is empty');
+            } else {
+                showOrderPage();
+            }
+        });
+
+        backToMenuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showMainPage();
+        });
+
+        backToHomeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showMainPage();
+        });
+
+        contactBackToHomeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showMainPage();
+        });
+
+        searchBtn.addEventListener('click', () => {
+            searchTerm = searchInput.value;
+            renderMenuItems();
+        });
+
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                searchTerm = searchInput.value;
+                renderMenuItems();
+            }
+        });
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.classList.add('active');
+                currentCategory = btn.getAttribute('data-category');
+                renderMenuItems();
+            });
+        });
+
+        toastClose.addEventListener('click', () => {
+            toast.classList.remove('show');
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (email && password) {
+                showToast('Login successful!');
+                loginPage.style.display = 'none';
+                mainPage.style.display = 'block';
+                loginToggle.textContent = 'Logout';
+            } else {
+                showToast('Please enter an email and password');
+            }
+        });
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = contactEmailInput.value;
+            const name = contactNameInput.value;
+            const subject = contactSubjectInput.value;
+            const message = contactMessageInput.value;
+            
+            if (email && name && subject && message) {
+                showToast('Message sent successfully!');
+                contactEmailInput.value = '';
+                contactNameInput.value = '';
+                contactSubjectInput.value = '';
+                contactMessageInput.value = '';
+            } else {
+                showToast('Please fill in all fields');
+            }
+        });
+
+        checkoutBtn.addEventListener('click', () => {
+            showToast('Order placed successfully!');
+            cart = [];
+            updateCartCount();
+            showMainPage();
+        });
+
+        // Initialize the page
+        init();
+    </script>
+</body>
+</html>
